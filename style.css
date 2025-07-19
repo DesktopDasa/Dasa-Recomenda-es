@@ -94,3 +94,9 @@ p{
   background-color: #ffffff;
   cursor: pointer;
 }
+@media (max-width: 600px) {
+  .botao-ver-mais {
+    width: 80%;
+    font-size: 14px;
+  }
+}
