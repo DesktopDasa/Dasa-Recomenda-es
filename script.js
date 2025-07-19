@@ -10,3 +10,21 @@ botao.addEventListener("click", function () {
         botao.textContent = "ver menos séries";
     }
 });
+// Abrir e fechar o modal
+const abrirModal = document.getElementById("abrir-modal");
+const fecharModal = document.getElementById("fechar-modal");
+const modal = document.getElementById("modal-lista");
+
+abrirModal.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+
+fecharModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
