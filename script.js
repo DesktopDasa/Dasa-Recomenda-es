@@ -1,4 +1,4 @@
-const botao = document.querySelector("button");
+const botao = document.getElementById("botao-ver-mais");
 const maisSeries = document.querySelector(".mais-series");
 
 botao.addEventListener("click", function () {
