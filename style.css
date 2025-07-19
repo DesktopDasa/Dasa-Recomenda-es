@@ -78,5 +78,5 @@ p{
     transform: scale(1.05);
 }
 #ver-mais{
-  display: center;
+  display: block;
 }
