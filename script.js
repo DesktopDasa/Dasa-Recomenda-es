@@ -43,24 +43,30 @@ botoesAdicionar.forEach(botao => {
 
     // Remove o botão "adicionar à lista" da cópia
     const botaoNaCopia = copiaSerie.querySelector(".botao-adicionar");
-    if (botaoNaCopia) {
-      botaoNaCopia.remove();
+if (botaoNaCopia) {
+  botaoNaCopia.remove();
+}
+
+// Pega os dados da série
 const imagem = serie.querySelector("img").src;
 const titulo = serie.querySelector("h3").textContent;
 const descricao = serie.querySelector("p").textContent;
+
+// Cria objeto com os dados
 const dadosSerie = {
-    imagem: imagem,
-    titulo: titulo,
-    descricao: descricao
-    // 1. Pegar a lista atual (ou criar uma nova lista)
+  imagem: imagem,
+  titulo: titulo,
+  descricao: descricao
+};
+
+// 1. Pegar a lista atual (ou criar uma nova lista)
 let listaSalva = JSON.parse(localStorage.getItem("listaSeries")) || [];
 
 // 2. Adicionar a nova série
-    listaSalva.push(dadosSerie);
+listaSalva.push(dadosSerie);
 
 // 3. Salvar de novo no localStorage
-    localStorage.setItem("listaSeries", JSON.stringify(listaSalva));
-
+localStorage.setItem("listaSeries", JSON.stringify(listaSalva));
 };
     }
 
