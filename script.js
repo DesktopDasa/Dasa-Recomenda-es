@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function () {
 // Mostrar/Ocultar mais séries
 const botaoVerMais = document.getElementById("botao-ver-mais");
 const maisSeries = document.querySelector(".mais-series");
@@ -76,4 +77,5 @@ let listaSalva = JSON.parse(localStorage.getItem("listaSeries")) || [];
     copiaSerie.appendChild(botaoRemover);
     listaAdicionadas.appendChild(copiaSerie);
   });
+});
 });
