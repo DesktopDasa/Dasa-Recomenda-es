@@ -13,10 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Modal (lista de séries)
+  // Modal
   const abrirModal = document.getElementById("abrir-modal");
   const fecharModal = document.getElementById("fechar-modal");
   const modal = document.getElementById("modal-lista");
+  const listaAdicionadas = document.getElementById("lista-adicionadas");
 
   abrirModal.addEventListener("click", () => {
     modal.style.display = "block";
@@ -32,50 +33,60 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Adicionar série à lista
+  // Adicionar à lista
   const botoesAdicionar = document.querySelectorAll(".botao-adicionar");
-  const listaAdicionadas = document.getElementById("lista-adicionadas");
 
   botoesAdicionar.forEach(botao => {
     botao.addEventListener("click", () => {
       const serie = botao.closest(".serie");
-      const copiaSerie = serie.cloneNode(true);
-
-      // Remove o botão "adicionar à lista" da cópia
-      const botaoNaCopia = copiaSerie.querySelector(".botao-adicionar");
-      if (botaoNaCopia) {
-        botaoNaCopia.remove();
-      }
-
-      // Pega os dados da série
       const imagem = serie.querySelector("img").src;
       const titulo = serie.querySelector("h3").textContent;
       const descricao = serie.querySelector("p").textContent;
 
-      // Cria objeto com os dados
       const dadosSerie = {
-        imagem: imagem,
-        titulo: titulo,
-        descricao: descricao
+        imagem,
+        titulo,
+        descricao
       };
 
-      // 1. Pega a lista atual (ou cria uma nova lista)
+      // Salvar no localStorage
       let listaSalva = JSON.parse(localStorage.getItem("listaSeries")) || [];
-
-      // 2. Adiciona a nova série
       listaSalva.push(dadosSerie);
-
-      // 3. Salva de novo no localStorage
       localStorage.setItem("listaSeries", JSON.stringify(listaSalva));
 
-      // Cria botão de remover
+      renderizarLista(); // Atualiza o modal
+    });
+  });
+
+  function renderizarLista() {
+    listaAdicionadas.innerHTML = ""; // Limpa antes de preencher
+
+    const lista = JSON.parse(localStorage.getItem("listaSeries")) || [];
+
+    lista.forEach((serie, index) => {
+      const div = document.createElement("div");
+      div.classList.add("serie");
+
+      div.innerHTML = `
+        <img src="${serie.imagem}" alt="${serie.titulo}">
+        <h3>${serie.titulo}</h3>
+        <p>${serie.descricao}</p>
+      `;
+
       const botaoRemover = document.createElement("button");
       botaoRemover.textContent = "Remover";
       botaoRemover.classList.add("botao", "botao-remover");
-
-      // Evento de remoção
       botaoRemover.addEventListener("click", () => {
-        copiaSerie.remove();
+        lista.splice(index, 1);
+        localStorage.setItem("listaSeries", JSON.stringify(lista));
+        renderizarLista();
       });
 
-      copiaSerie.appendCh
+      div.appendChild(botaoRemover);
+      listaAdicionadas.appendChild(div);
+    });
+  }
+
+  // Exibir lista ao carregar página
+  renderizarLista();
+});
