@@ -85,9 +85,17 @@
     </div>
     <!-- BOTÃO -->
     <button class="botao-ver-mais" onclick="mostrarMais()">Ver mais séries</button>
-    <!-- Favoritos -->
-   
+    <!-- Botão flutuante para abrir o modal -->
+    <button id="abrir-modal" class="botao-modal">📋 Ver Lista</button>
 
+   <!-- Modal -->
+    <div id="modal-lista" class="modal">
+      <div class="modal-conteudo">
+       <span id="fechar-modal" class="fechar">&times;</span>
+        <h2>Séries adicionadas</h2>
+       <div id="lista-adicionadas" class="lista-series"></div>
+      </div>
+    </div>
     <!-- FONTE DO GOOGLE-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
