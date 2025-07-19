@@ -1,16 +1,18 @@
-const botao = document.getElementById("botao-ver-mais");
+// Mostrar/Ocultar mais séries
+const botaoVerMais = document.getElementById("botao-ver-mais");
 const maisSeries = document.querySelector(".mais-series");
 
-botao.addEventListener("click", function () {
+botaoVerMais.addEventListener("click", function () {
     if (maisSeries.classList.contains("mostrar")) {
         maisSeries.classList.remove("mostrar");
-        botao.textContent = "ver mais séries";
+        botaoVerMais.textContent = "ver mais séries";
     } else {
         maisSeries.classList.add("mostrar");
-        botao.textContent = "ver menos séries";
+        botaoVerMais.textContent = "ver menos séries";
     }
 });
-// Abrir e fechar o modal
+
+// Modal (lista de séries)
 const abrirModal = document.getElementById("abrir-modal");
 const fecharModal = document.getElementById("fechar-modal");
 const modal = document.getElementById("modal-lista");
@@ -28,7 +30,8 @@ window.addEventListener("click", (e) => {
     modal.style.display = "none";
   }
 });
-// Seleciona todos os botões "adicionar à lista"
+
+// Adicionar série à lista
 const botoesAdicionar = document.querySelectorAll(".botao-adicionar");
 const listaAdicionadas = document.getElementById("lista-adicionadas");
 
@@ -42,18 +45,18 @@ botoesAdicionar.forEach(botao => {
     if (botaoNaCopia) {
       botaoNaCopia.remove();
     }
-// Cria um botão de remover
-const botaoRemover = document.createElement("button");
-botaoRemover.textContent = "Remover";
-botaoRemover.classList.add("botao", "botao-remover");
 
-// Adiciona o botão à série clonada
-copiaSerie.appendChild(botaoRemover);
+    // Cria botão de remover
+    const botaoRemover = document.createElement("button");
+    botaoRemover.textContent = "Remover";
+    botaoRemover.classList.add("botao", "botao-remover");
 
-// Evento para remover a série quando clicar no botão
-botaoRemover.addEventListener("click", () => {
-  copiaSerie.remove();
-});
+    // Evento de remoção
+    botaoRemover.addEventListener("click", () => {
+      copiaSerie.remove();
+    });
+
+    copiaSerie.appendChild(botaoRemover);
     listaAdicionadas.appendChild(copiaSerie);
   });
 });
