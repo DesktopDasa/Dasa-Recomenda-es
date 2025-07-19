@@ -42,7 +42,18 @@ botoesAdicionar.forEach(botao => {
     if (botaoNaCopia) {
       botaoNaCopia.remove();
     }
+// Cria um botão de remover
+const botaoRemover = document.createElement("button");
+botaoRemover.textContent = "Remover";
+botaoRemover.classList.add("botao", "botao-remover");
 
+// Adiciona o botão à série clonada
+copiaSerie.appendChild(botaoRemover);
+
+// Evento para remover a série quando clicar no botão
+botaoRemover.addEventListener("click", () => {
+  copiaSerie.remove();
+});
     listaAdicionadas.appendChild(copiaSerie);
   });
 });
