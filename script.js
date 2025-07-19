@@ -57,11 +57,3 @@ botaoRemover.addEventListener("click", () => {
     listaAdicionadas.appendChild(copiaSerie);
   });
 });
-// Botão "Ver mais séries"
-const botaoVerMais = document.getElementById("botao-ver-mais");
-const maisSeries = document.querySelector(".mais-series");
-
-botaoVerMais.addEventListener("click", () => {
-  maisSeries.style.display = "flex"; // ou "block" se quiser vertical
-  botaoVerMais.style.display = "none";
-});
