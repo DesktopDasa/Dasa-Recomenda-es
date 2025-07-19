@@ -100,16 +100,3 @@ p{
     font-size: 14px;
   }
 }
-.minha-lista {
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #333;
-  border-radius: 10px;
-}
-
-.lista-series {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
