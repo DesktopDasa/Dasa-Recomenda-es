@@ -10,4 +10,3 @@ botao.addEventListener("click", function () {
         botao.textContent = "ver menos séries";
     }
 });
-const botoesAdicionar = document.querySelectorAll(".botao");
