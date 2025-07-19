@@ -28,3 +28,21 @@ window.addEventListener("click", (e) => {
     modal.style.display = "none";
   }
 });
+// Seleciona todos os botões "adicionar à lista"
+const botoesAdicionar = document.querySelectorAll(".botao-adicionar");
+const listaAdicionadas = document.getElementById("lista-adicionadas");
+
+botoesAdicionar.forEach(botao => {
+  botao.addEventListener("click", () => {
+    const serie = botao.closest(".serie");
+    const copiaSerie = serie.cloneNode(true);
+
+    // Remove o botão "adicionar à lista" da cópia
+    const botaoNaCopia = copiaSerie.querySelector(".botao-adicionar");
+    if (botaoNaCopia) {
+      botaoNaCopia.remove();
+    }
+
+    listaAdicionadas.appendChild(copiaSerie);
+  });
+});
