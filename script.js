@@ -11,16 +11,3 @@ botao.addEventListener("click", function () {
     }
 });
 const botoesAdicionar = document.querySelectorAll(".botao");
-const listaSeries = document.querySelector(".lista-series");
-
-botoesAdicionar.forEach((botao) => {
-  botao.addEventListener("click", function (event) {
-    event.preventDefault(); // impedir que o link recarregue a página
-
-    const serie = this.closest(".serie");
-    const copia = serie.cloneNode(true); // clona a série
-    copia.querySelector(".botao").remove(); // remove o botão da cópia
-
-    listaSeries.appendChild(copia); // adiciona à lista
-  });
-});
