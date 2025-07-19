@@ -78,6 +78,6 @@ p{
     transform: scale(1.05);
 }
 #ver-mais{
-  display: block;
+  display: center;
   margin: 20px auto;
 }
