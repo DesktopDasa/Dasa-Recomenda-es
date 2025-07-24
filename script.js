@@ -34,10 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Adicionar à lista
-  const botoesAdicionar = document.querySelectorAll(".botao-adicionar");
+     const containerSeries = document.querySelector(".container-series");
 
-  botoesAdicionar.forEach(botao => {
-    botao.addEventListener("click", () => {
+  containerSeries.addEventListener("click", (event) => {
+    const botao = event.target;
+
+    if (botao.classList.contains("botao-adicionar")) {
       const serie = botao.closest(".serie");
       const imagem = serie.querySelector("img").src;
       const titulo = serie.querySelector("h3").textContent;
@@ -48,6 +50,15 @@ document.addEventListener("DOMContentLoaded", function () {
         titulo,
         descricao
       };
+
+      // Salvar no localStorage
+      let listaSalva = JSON.parse(localStorage.getItem("listaSeries")) || [];
+      listaSalva.push(dadosSerie);
+      localStorage.setItem("listaSeries", JSON.stringify(listaSalva));
+
+      renderizarLista(); // Atualiza o modal
+    }
+  });
 
       // Salvar no localStorage
       let listaSalva = JSON.parse(localStorage.getItem("listaSeries")) || [];
