@@ -3,14 +3,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const botaoVerMais = document.getElementById("botao-ver-mais");
   const maisSeries = document.querySelector(".mais-series");
 
-  if (botaoVerMais && maisSeries) {
-    botaoVerMais.addEventListener("click", function () {
-      maisSeries.classList.toggle("mostrar");
-      botaoVerMais.textContent = maisSeries.classList.contains("mostrar")
-        ? "ver menos séries"
-        : "ver mais séries";
-    });
-  }
+  botaoVerMais.addEventListener("click", function () {
+    if (maisSeries.classList.contains("mostrar")) {
+      maisSeries.classList.remove("mostrar");
+      botaoVerMais.textContent = "ver mais séries";
+    } else {
+      maisSeries.classList.add("mostrar");
+      botaoVerMais.textContent = "ver menos séries";
+    }
+  });
 
   // Modal
   const abrirModal = document.getElementById("abrir-modal");
@@ -18,51 +19,45 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("modal-lista");
   const listaAdicionadas = document.getElementById("lista-adicionadas");
 
-  if (abrirModal && fecharModal && modal) {
-    abrirModal.addEventListener("click", () => {
-      modal.style.display = "block";
-    });
+  abrirModal.addEventListener("click", () => {
+    modal.style.display = "block";
+  });
 
-    fecharModal.addEventListener("click", () => {
+  fecharModal.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
       modal.style.display = "none";
-    });
+    }
+  });
 
-    window.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  }
+  // Delegação de evento para botões "Adicionar à lista"
+  document.addEventListener("click", (event) => {
+    const botao = event.target;
+    if (botao.classList.contains("botao-adicionar")) {
+      const serie = botao.closest(".serie");
+      if (!serie) return;
 
-  // Adicionar à lista (usando delegação de eventos para garantir funcionamento)
-  const containerSeries = document.querySelector(".container-series");
+      const imagem = serie.querySelector("img")?.src || "";
+      const titulo = serie.querySelector("h3")?.textContent || "";
+      const descricao = serie.querySelector("p")?.textContent || "";
 
-  if (containerSeries) {
-    containerSeries.addEventListener("click", (event) => {
-      const botao = event.target;
-      if (botao.classList.contains("botao-adicionar")) {
-        const serie = botao.closest(".serie");
-        if (!serie) return;
+      const novaSerie = { imagem, titulo, descricao };
 
-        const imagem = serie.querySelector("img")?.src || "";
-        const titulo = serie.querySelector("h3")?.textContent || "";
-        const descricao = serie.querySelector("p")?.textContent || "";
+      let lista = JSON.parse(localStorage.getItem("listaSeries")) || [];
+      lista.push(novaSerie);
+      localStorage.setItem("listaSeries", JSON.stringify(lista));
 
-        const novaSerie = { imagem, titulo, descricao };
+      renderizarLista();
+    }
+  });
 
-        let lista = JSON.parse(localStorage.getItem("listaSeries")) || [];
-        lista.push(novaSerie);
-        localStorage.setItem("listaSeries", JSON.stringify(lista));
-        renderizarLista();
-      }
-    });
-  }
-
-  // Remover da lista
   function renderizarLista() {
-    listaAdicionadas.innerHTML = "";
+    listaAdicionadas.innerHTML = ""; // Limpa antes de preencher
 
-    let lista = JSON.parse(localStorage.getItem("listaSeries")) || [];
+    const lista = JSON.parse(localStorage.getItem("listaSeries")) || [];
 
     lista.forEach((serie, index) => {
       const div = document.createElement("div");
@@ -78,8 +73,9 @@ document.addEventListener("DOMContentLoaded", function () {
       botaoRemover.textContent = "Remover";
       botaoRemover.classList.add("botao", "botao-remover");
       botaoRemover.addEventListener("click", () => {
-        lista.splice(index, 1);
-        localStorage.setItem("listaSeries", JSON.stringify(lista));
+        const listaAtual = JSON.parse(localStorage.getItem("listaSeries")) || [];
+        listaAtual.splice(index, 1);
+        localStorage.setItem("listaSeries", JSON.stringify(listaAtual));
         renderizarLista();
       });
 
@@ -88,6 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Inicializar lista ao carregar a página
+  // Exibir lista ao carregar página
   renderizarLista();
 });
